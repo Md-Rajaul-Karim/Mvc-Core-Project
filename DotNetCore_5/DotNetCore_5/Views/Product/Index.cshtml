@@ -1,0 +1,107 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div style="background-color:mistyrose">
+    <div>
+        <p>
+            <a class="btn btn-secondary" asp-action="Create">Create New</a>
+        </p>
+        <form asp-action="Index" method="get">
+            <div class="btnSearch">
+                <p>
+                    Find by name: <input type="text" name="SearchString" value="@ViewBag.CurrentFilter" />
+                    <input type="submit" value="Search" class="btn btn-info" /> &nbsp;&nbsp;
+                    <a asp-action="Index" class="btn btn-outline-secondary">Back to Full List</a>
+                </p>
+            </div>
+        </form>
+
+    </div>
+
+    <table class="table table-bordered table-striped text-center">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ProductId)
+                </th>
+                <th>
+                    @Html.ActionLink("ProductName", "Index", new { SortOrder = ViewBag.SortNameParam }, new { @class = "text-decoration-none" })
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PurchaseDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImageName)
+                </th>
+                <th>Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ProductName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PurchaseDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UnitPrice)
+                    </td>
+                    <td>
+                        <img src="~/images/product_images/@item.ImageName" + item.I" width="70" height="80" asp-append-version="true" />
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }, new { @class = "btn  btn-danger" })
+                        @Html.ActionLink("Details", "Details", new { id = item.ProductId }, new { @class = "btn btn-info" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+new X.PagedList.Web.Common.PagedListRenderOptions
+{
+    ContainerDivClasses = new[] { "navication" },
+    LiElementClasses = new[] { "page-item" },
+    PageClasses = new[] { "page-link" },
+})
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('ul.pagination>li.disabled>a').addClass('page-link');
+        })
+    </script>
+}

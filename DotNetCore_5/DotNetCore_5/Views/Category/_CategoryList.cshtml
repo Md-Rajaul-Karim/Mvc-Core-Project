@@ -1,0 +1,23 @@
+﻿@model IEnumerable<CategoryViewModel>
+<h2>Category List</h2>
+<div>
+    <table class="table table-bordered table-striped text-center">
+
+        <tr>
+            <th>Category Id</th>
+            <th>Category Name</th>
+            <th>Operation</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.CategoryId</td>
+                <td>@item.CategoryName</td>
+                <td>
+                    <a href="#" class="btn btn-warning" name="btnEditModal" onclick='Update("+@item.CategoryId+")' data-bs-toggle="modal" data-bs-target="#EditModal">Edit</a>
+                    <a href="#" class="btn  btn-danger" name="btnDeleteModal" onclick='Delete("+@item.CategoryId+")' data-bs-toggle="modal" data-bs-target="#DeleteModal">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

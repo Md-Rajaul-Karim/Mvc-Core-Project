@@ -1,0 +1,50 @@
+﻿@model IEnumerable<DotNetCore_5.Models.Supplier>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-2"></div>
+    <div class="col-8" style="background-color:mistyrose">
+        <p>
+            <a class="btn-success"  asp-action="Create">Create New</a>
+        </p>
+        <table class="table table-bordered" style="background-color:cornsilk">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SupplierName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactNumber)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SupplierName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-2"></div>
+</div>
+

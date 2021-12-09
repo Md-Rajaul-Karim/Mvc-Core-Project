@@ -1,0 +1,70 @@
+﻿@model ProductViewModel
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group mb-3">
+                <label asp-for="ProductName" class="form-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CategoryName" class="form-label"></label>
+                @if (ViewBag.Categories != null)
+                {
+                    <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(@ViewBag.Categories,"CategoryId", "CategoryName"))">
+                        <option value="">--Select Category--</option>
+                    </select>
+                }
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SupplierName" class="form-label"></label>
+                @if (ViewBag.Suppliers != null)
+                {
+                    <select asp-for="SupplierId" class="form-control" asp-items="@(new SelectList(@ViewBag.Suppliers,"SupplierId", "SupplierName"))">
+                        <option value="">--Select Category--</option>
+                    </select>
+                }
+                <span asp-validation-for="SupplierId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group position-relative mb-3">
+                <label asp-for="PurchaseDate" class="form-label"></label>
+                <input asp-for="PurchaseDate" class="form-control" />
+                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Quantity" class="form-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="UnitPrice" class="form-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Photo" class="form-label mb-3"></label>
+                <img src="~/images/noI.png" style="height:90px!important; width:auto!important;" class="form-control change_edit mb-3" asp-append-version="true" />
+                <input asp-for="Photo" class="form-control change_image" type="file" required />
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>

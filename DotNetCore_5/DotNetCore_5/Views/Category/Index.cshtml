@@ -1,0 +1,112 @@
+﻿@model IEnumerable<CategoryViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto" style="background-color:mistyrose">
+        <form method="post" data-ajax="true"
+              data-ajax-update="#divAjax"
+              data-ajax-loading="#LoadingImage"
+              data-ajax-loading-duration="2000"
+              data-ajax-confirm="Are You Sure to Save this Data?"
+              data-ajax-complete="Clear"
+              asp-action="Create" asp-controller="Category" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <h2 class="mb-3">Add Category</h2>
+
+            <div class="form-group mb-3">
+                <label class="form-label">Category Name</label>
+                <input class="form-control" type="text" id="CategoryName" name="CategoryName" value="">
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <div class="col-md-12" id="LoadingImage" style="display:none;">
+            <img src="~/images/app-images/gif-loading-icon-1.jpg" width="100" height="100" />
+        </div>
+        <div class="my-5" id="divAjax">
+            <partial name="~/Views/Category/_CategoryList.cshtml" />
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header px-md-5">
+                <h3 class="modal-title" id="detailsModalLabel">Update Supplier</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-md-5">
+                <div id="EditDiv">
+                    @if (ViewBag.Details == "Show")
+                    {
+                        <partial name="~/Views/Category/_Edit.cshtml" />
+                        ViewBag.Details = "";
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="DeleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header px-md-5">
+                <h3 class="modal-title" id="detailsModalLabel">Delete Supplier</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-md-5">
+                <div id="DeleteDiv">
+                    @if (ViewBag.Details == "Show")
+                    {
+                        <partial name="~/Views/Category/_Delete.cshtml" />
+                        ViewBag.Details = "";
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function Clear() {
+        $(this).closest('form').find("input[type=text], textarea").val("");
+    }
+    function Update(categoryId) {
+        $.ajax({
+            url: "/Category/Edit?id=" + categoryId,
+            type: "GET",
+            data: "",
+            contentType: 'application/json; charset = utf-8',
+            success: function (data) {
+                $('#EditDiv').show();
+                $('#EditDiv').html(data);
+            },
+            error: function () {
+                alert("Error occured")
+            }
+        })
+    }
+    function Delete(categoryId) {
+        $.ajax({
+            url: "/Category/Delete?id=" + categoryId,
+            type: "GET",
+            data: "",
+            contentType: 'application/json; charset = utf-8',
+            success: function (data) {
+                $('#DeleteDiv').show();
+                $('#DeleteDiv').html(data);
+            },
+            error: function () {
+                alert("Error occured")
+            }
+        })
+    }
+
+    function Clear() {
+        $(this).closest('form').find("input[type=text], textarea").val("");
+    }
+</script>

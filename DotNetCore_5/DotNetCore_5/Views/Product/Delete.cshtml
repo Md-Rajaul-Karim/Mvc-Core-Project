@@ -1,0 +1,63 @@
+﻿@model ProductViewModel
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var imagePath = "~/images/product_images/" + (Model.ImageName ?? "noI.png");
+}
+
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <form asp-action="Delete" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="ImageName" />
+            <div class="form-group mb-3">
+                <label asp-for="ProductName" class="form-label"></label>
+                <input asp-for="ProductName" class="form-control" />
+                <span asp-validation-for="ProductName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CategoryName" class="form-label"></label>
+                @if (ViewBag.Categories != null)
+                {
+                    <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(@ViewBag.Categories,"CategoryId", "CategoryName"))">
+                        <option value="">--Select Category--</option>
+                    </select>
+                }
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Email" class="form-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group position-relative mb-3">
+                <label asp-for="PurchaseDate" class="form-label"></label>
+                <input asp-for="PurchaseDate" class="form-control" />
+                <span asp-validation-for="PurchaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Quantity" class="form-label"></label>
+                <input asp-for="Quantity" class="form-control" />
+                <span asp-validation-for="Quantity" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="UnitPrice" class="form-label"></label>
+                <input asp-for="UnitPrice" class="form-control" />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="Photo" class="form-label mb-3"></label>
+                <img src="@imagePath" style="height:90px!important; width:auto!important;" class="form-control change_edit mb-3" asp-append-version="true" />
+                <input asp-for="Photo" class="form-control change_image" type="file" />
+            </div>
+            <div class="form-group mb-3">
+                <input type="submit" value="Delete" class="btn btn-warning" />
+            </div>
+        </form>
+        <div>
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </div>
+</div>
+

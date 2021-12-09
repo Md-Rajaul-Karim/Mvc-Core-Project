@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Product Management</title>
+
+    <link href="~/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <script src="~/jquery/jquery.js"></script>
+    <script src="~/jquery-validate/jquery.validate.js"></script>
+    <script src="~/jquery-validate/jquery.validate.js"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/bootstrap/js/bootstrap.js"></script>
+    <script src="~/CustomJS/JavaScript.js"></script>
+
+</head>
+<body style="background-color:paleturquoise">
+    <nav class="navbar navbar navbar-expand-lg navbar-light" style="background-color:deepskyblue">
+        <div class="container">
+            <a class="navbar-brand" asp-area="" asp-page="/Index">Product Managment</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                <ul class="navbar-nav flex-grow-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Supplier" asp-action="Index">Supplier</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Category" asp-action="Index">Category</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Product" asp-action="Index">Product</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Customer" asp-action="Index">Customer</a>
+                        </li>
+                    }
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Administrator" asp-action="Index">Administrator</a>
+                        </li>
+                    }
+
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+    <br />
+    <br />
+    <div class="container">
+        <main role="main" class="pb-4">
+            @RenderBody()
+        </main>
+    </div>
+    <br />
+    <br />
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2021 - Product Management - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
